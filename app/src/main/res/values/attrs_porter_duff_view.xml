@@ -1,0 +1,9 @@
+<resources>
+    <declare-styleable name="porterduff_PorterDuffView">
+        <attr name="porterduffMode" format="boolean" />
+        <attr name="porterduffColor" format="reference" />
+        <attr name="porterduffTextSize" format="dimension" />
+        <attr name="porterduffTextColor" format="reference" />
+
+    </declare-styleable>
+</resources>
