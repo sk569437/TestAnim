@@ -1,13 +1,14 @@
 package com.jjws.testanim;
 
-import android.support.v7.app.AppCompatActivity;
+
+import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
 import com.jjws.custom.view.AnimCircleView;
 
-public class ThirdActivity extends AppCompatActivity {
+public class ThirdActivity extends Activity {
 
 
     private Button resetBtn;

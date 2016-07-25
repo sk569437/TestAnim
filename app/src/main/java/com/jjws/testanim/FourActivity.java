@@ -1,5 +1,6 @@
 package com.jjws.testanim;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.PorterDuff;
@@ -7,9 +8,10 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AppCompatActivity;
+
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,17 +19,18 @@ import android.widget.Button;
 import android.widget.TextView;
 
 
-
+import com.jjws.custom.view.PersonListItem;
+import com.jjws.model.Person;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class FourActivity extends AppCompatActivity implements View.OnClickListener{
+public class FourActivity extends Activity implements View.OnClickListener{
 
     private RecyclerView mRecyclerview;
 
-    private List<String> mList;
+    private List<Person> mList;
     private MyRecyclerAdapter mAdapter;
     //private PersonTypeAdapter adapter;
     private LinearLayoutManager mLayoutManager;
@@ -136,20 +139,28 @@ public class FourActivity extends AppCompatActivity implements View.OnClickListe
         mList.clear();
 
         for(int i=0;i<15;i++) {
-            mList.add("recyclerview item " + (i+1));
+            Person person = new Person();
+            person.setId("20260719" + i);
+            person.setName("item " + (i+1));
+            person.setSex(i%2==0 ? "F" : "M");
+            mList.add(person);
         }
     }
 
     private void loadMore() {
         int total = mList.size();
         for(int i=total;i<10+total;i++) {
-            mList.add("recyclerview item " + (i+1));
+            Person person = new Person();
+            person.setId("20260719" + i);
+            person.setName("item " + (i+1));
+            person.setSex(i%2==0 ? "F" : "M");
+            mList.add(person);
         }
     }
 
     private void onAddOne() {
 
-        String one = new String("Add One");
+        Person one = new Person("201160718" , "Add One", "M", null);
         int pos = 3;
         mAdapter.notifyItemInserted(pos);
         mList.add(pos, one);
@@ -157,9 +168,9 @@ public class FourActivity extends AppCompatActivity implements View.OnClickListe
 
     }
     private void onAddbatch(){
-        String one = new String("Add Batch 1");
-        String two = new String("Add Batch 2");
-        String three = new String("Add Batch 3");
+        Person one = new Person("201160718" , "Batch Add One", "M", null);
+        Person two = new Person("201160718" , "Batch Add One", "F", null);
+        Person three = new Person("201160718" , "Batch Add One", "M", null);
 
         int pos = 1;
         mAdapter.notifyItemRangeInserted(pos, 3);
@@ -210,23 +221,24 @@ public class FourActivity extends AppCompatActivity implements View.OnClickListe
 
         private TextView mTxt;
         private View layout_item;
-
+        private View root;
 
 
         public MyHolder(View itemView) {
             super(itemView);
             mTxt = (TextView) itemView.findViewById(R.id.tv_txt);
             layout_item = (View) itemView.findViewById(R.id.layout_item);
+            root = itemView.findViewById(R.id.personListItem);
         }
 
     }
 
     private class  MyRecyclerAdapter extends RecyclerView.Adapter<MyHolder> {
         private Context mContext;
-        private List<String> list;
+        private List<Person> list;
         private onRecycleItemClickListener mListener;
 
-        public MyRecyclerAdapter(Context context, List<String> list) {
+        public MyRecyclerAdapter(Context context, List<Person> list) {
             this.mContext = context;
             this.list = list;
         }
@@ -249,10 +261,10 @@ public class FourActivity extends AppCompatActivity implements View.OnClickListe
 
         @Override
         public void onBindViewHolder(MyHolder holder, final int position) {
-            String item = (String) getItem(position);
+            Person item = (Person) getItem(position);
 
             if(item != null) {
-                holder.mTxt.setText(item);
+                holder.mTxt.setText(item.getName());
 
 
                 holder.layout_item.setOnClickListener(new View.OnClickListener() {
@@ -275,6 +287,10 @@ public class FourActivity extends AppCompatActivity implements View.OnClickListe
                     }
                 });
 
+                PersonListItem personitem = (PersonListItem) holder.root;
+                String sex = item.getSex();
+                boolean isMan = (!TextUtils.isEmpty(sex) && sex.equals("M")) ? (true) : (false);
+                personitem.setIsMan(isMan);
             }
         }
 

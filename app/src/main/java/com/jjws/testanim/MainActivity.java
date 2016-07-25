@@ -5,13 +5,13 @@ import android.animation.AnimatorInflater;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Camera;
 import android.graphics.Matrix;
-import android.support.v4.view.animation.FastOutSlowInInterpolator;
-import android.support.v4.view.animation.LinearOutSlowInInterpolator;
-import android.support.v7.app.AppCompatActivity;
+
+
 import android.os.Bundle;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
@@ -33,8 +33,11 @@ import android.view.animation.Transformation;
 import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity {
+import com.zbar.lib.CaptureActivity;
+
+public class MainActivity extends Activity {
 
 
 
@@ -47,6 +50,9 @@ public class MainActivity extends AppCompatActivity {
     private Button translateButton = null;
 
     private ImageView image = null;
+
+    private TextView jnistr;
+    private JNITest mJNITest = new JNITest();
 
     @Override
 
@@ -67,6 +73,8 @@ public class MainActivity extends AppCompatActivity {
         translateButton = (Button)findViewById(R.id.translateButton);
 
         image = (ImageView)findViewById(R.id.image);
+        jnistr = (TextView) findViewById(R.id.jnistr);
+        jnistr.setText(mJNITest.getNativeString("from java"));
 
 
 
@@ -129,7 +137,7 @@ public class MainActivity extends AppCompatActivity {
 //            a.setTarget(image);
 //            a.start();
 
-            startActivity(new Intent(MainActivity.this, FourActivity.class));
+            startActivity(new Intent(MainActivity.this, CaptureActivity.class));
         }
 
     }

@@ -1,0 +1,13 @@
+<resources>
+    <declare-styleable name="RoundImageDrawable">
+        <attr name="drawableType" format="enum" >
+
+            <enum name="RoundCorner" value="0" />
+            <enum name="Circle" value="1" />
+
+        </attr>
+
+        <attr name="cornerRadius" format="dimension" />
+
+    </declare-styleable>
+</resources>
