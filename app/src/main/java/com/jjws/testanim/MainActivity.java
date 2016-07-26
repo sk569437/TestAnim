@@ -35,7 +35,10 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.jjws.model.Person;
 import com.zbar.lib.CaptureActivity;
+
+import java.util.ArrayList;
 
 public class MainActivity extends Activity {
 
@@ -52,7 +55,7 @@ public class MainActivity extends Activity {
     private ImageView image = null;
 
     private TextView jnistr;
-    private JNITest mJNITest = new JNITest();
+    private JNITest mJNITest = null;
 
     @Override
 
@@ -74,6 +77,7 @@ public class MainActivity extends Activity {
 
         image = (ImageView)findViewById(R.id.image);
         jnistr = (TextView) findViewById(R.id.jnistr);
+        mJNITest = JNITest.getInstance();
         jnistr.setText(mJNITest.getNativeString("from java"));
 
 
@@ -88,6 +92,33 @@ public class MainActivity extends Activity {
 
                 new TranslateButtonListener());
 
+
+        getData();
+    }
+
+
+
+    private void getData() {
+        ArrayList<Person> mList = new ArrayList<>();
+        if(mList == null)
+            mList = new ArrayList<>();
+        mList.clear();
+
+        ArrayList<Person> tmplist = new ArrayList<>();
+        for(int i=0;i<15;i++) {
+            Person person = new Person();
+            person.setId("20260719" + i);
+            person.setName("item " + (i+1));
+            person.setSex(i%2==0 ? "F" : "M");
+            tmplist.add(person);
+        }
+
+        Person[]arr = JNITest.getInstance().getPersonObjArray(tmplist);
+        if(arr != null && arr.length > 0) {
+            for(int i=0;i<arr.length;i++) {
+                mList.add(arr[i]);
+            }
+        }
     }
 
     class AlphaButtonListener implements View.OnClickListener{
@@ -137,7 +168,7 @@ public class MainActivity extends Activity {
 //            a.setTarget(image);
 //            a.start();
 
-            startActivity(new Intent(MainActivity.this, CaptureActivity.class));
+            startActivity(new Intent(MainActivity.this, FourActivity.class));
         }
 
     }

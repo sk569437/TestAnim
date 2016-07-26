@@ -138,13 +138,28 @@ public class FourActivity extends Activity implements View.OnClickListener{
             mList = new ArrayList<>();
         mList.clear();
 
+        ArrayList<Person> tmplist = new ArrayList<>();
         for(int i=0;i<15;i++) {
             Person person = new Person();
             person.setId("20260719" + i);
             person.setName("item " + (i+1));
             person.setSex(i%2==0 ? "F" : "M");
-            mList.add(person);
+            tmplist.add(person);
         }
+
+//        Person[]arr = JNITest.getInstance().getPersonObjArray(tmplist);
+//        if(arr != null && arr.length > 0) {
+//            for(int i=0;i<arr.length;i++) {
+//                mList.add(arr[i]);
+//            }
+//
+//        }
+
+        ArrayList<Person> p = JNITest.getInstance().getPersonListFromNative(9);
+        if(p != null && p.size() > 0) {
+            mList.addAll(p);
+        }
+
     }
 
     private void loadMore() {

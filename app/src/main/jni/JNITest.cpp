@@ -14,7 +14,8 @@
 #define LOGI(...)   __android_log_print(ANDROID_LOG_INFO, LOG_TAG, __VA_ARGS__)
 
 
-
+#define TEST_PERSON_NAME    "com/jjws/model/Person"
+#define TEST_ARRAYlIST_NAME "java/util/ArrayList"
 
 
 #ifdef __cplusplus
@@ -55,8 +56,147 @@ JNIEXPORT jstring JNICALL Java_com_jjws_testanim_JNITest_getNativeString(JNIEnv 
 }
 
 
+JNIEXPORT jobjectArray JNICALL Java_com_jjws_testanim_JNITest_getPersonObjArray(JNIEnv *env, jobject thiz, jobject obj) {
 
 
+    jclass cls = env->FindClass(TEST_PERSON_NAME);
+    jclass listcls = env->FindClass(TEST_ARRAYlIST_NAME);
+
+    LOGD("[getPersonObjArray]:get jclass suc");
+
+    jmethodID id = env->GetMethodID(cls, "<init>", "()V");
+    jmethodID listid = env->GetMethodID(listcls, "<init>", "()V");
+
+
+    jmethodID listlenid =  (jmethodID)env->GetMethodID(listcls, "size", "()I");
+    jmethodID listgetid =  (jmethodID)env->GetMethodID(listcls, "get", "(I)Ljava/lang/Object;");
+
+    LOGD("[getPersonObjArray]:get method id suc");
+
+    jint len = (jint)env->CallIntMethod(obj, listlenid);
+
+    LOGD("[getPersonObjArray]:len=%d", len);
+    jobjectArray list = (jobjectArray)env->NewObjectArray(len, cls, NULL);
+    LOGD("[getPersonObjArray]:new object array");
+#if 1
+    int i = 0;
+    for(i=0;i<len;i++) {
+        jobject item = env->CallObjectMethod(obj, listgetid, i);
+        if(item != NULL) {
+            env->SetObjectArrayElement(list, i, item);
+            LOGD("[getPersonObjArray]:get item %d", i);
+        }
+    }
+#endif
+
+    return list;
+
+}
+
+char *itoa(int i) {
+
+    int tmpi = i;
+    int src = i;
+    int len = 1, offset = 0;
+    char *des  = NULL;
+
+    LOGD("[itoa]:function begin, i=%d", i);
+
+    while((tmpi=tmpi/10) >= 10) {
+        len ++;
+    }
+
+    LOGD("[itoa]:get i len, len=%d", len);
+
+    des = (char*)malloc(len+1);
+    if(des == NULL)
+        return NULL;
+
+    memset(des, 0x00, len + 1);
+
+    offset = len-1;
+    while((src/10) >= 10) {
+
+        char ch = src%10 + 48;
+        des[offset--] = ch;
+
+        src=src/10;
+    }
+
+    LOGD("[itoa]:get remain src , src=%d", src);
+
+    if(src>0) {
+        char ch = src%10 + 48;
+        des[offset] = ch;
+    }
+
+    LOGD("[itoa]:des=%s", des);
+
+    return des;
+}
+
+JNIEXPORT jobject JNICALL Java_com_jjws_testanim_JNITest_getPersonListFromNative(JNIEnv *env, jobject thiz, jint jlen) {
+
+    jclass cls = env->FindClass(TEST_PERSON_NAME);
+    jclass listcls = env->FindClass(TEST_ARRAYlIST_NAME);
+    int len = (int)jlen;
+
+    jmethodID mid_size = env->GetMethodID(listcls, "size", "()I");
+    jmethodID mid_get = env->GetMethodID(listcls, "get", "(I)Ljava/lang/Object;");
+    jmethodID mid_add = env->GetMethodID(listcls, "add", "(Ljava/lang/Object;)Z");
+    jmethodID mid_list = env->GetMethodID(listcls, "<init>", "()V");
+    jmethodID mid_person = env->GetMethodID(cls, "<init>", "()V");
+
+
+    jfieldID fid_id = env->GetFieldID(cls, "id", "Ljava/lang/String;");
+    jfieldID fid_name = env->GetFieldID(cls, "name", "Ljava/lang/String;");
+    jfieldID fid_sign = env->GetFieldID(cls, "sign", "Ljava/lang/String;");
+    jfieldID fid_sex = env->GetFieldID(cls, "sex", "Ljava/lang/String;");
+    jfieldID fid_age = env->GetFieldID(cls, "age", "I");
+
+    jobject obj = env->NewObject(listcls, mid_list);
+    if(obj == NULL) {
+        LOGD("getPersonListFromNative->obj is null");
+        return NULL;
+    }
+
+#if 1
+    int i=0;
+    for(i=0;i<len;i++) {
+        jobject item = env->NewObject(cls, mid_person);
+        int tmpid = 20160726 + i;
+        char name[64]={0};
+        char sign[64] = {0};
+        char sex[8] = {0};
+        char *p = NULL;
+        p = itoa(i+1);
+        strcpy(name, "item ");
+        strcat(name, p);
+        free(p);
+        p = NULL;
+
+        strcpy(sign, "good good study,day day up");
+        strcpy(sex, (i%2==0)?("M"):("F"));
+        p = itoa(tmpid);
+        jstring jid = (jstring)env->NewStringUTF((const char*)p);
+        jstring jname = (jstring)env->NewStringUTF((const char*)name);
+        jstring jsign = (jstring)env->NewStringUTF((const char*)sign);
+        jstring jsex = (jstring)env->NewStringUTF((const char*)sex);
+        jint jage = 23 + i;
+        free(p);
+        p = NULL;
+        env->SetObjectField(item, fid_id, jid);
+        env->SetObjectField(item, fid_name, jname);
+        env->SetObjectField(item, fid_sign, jsign);
+        env->SetObjectField(item, fid_sex, jsex);
+        env->SetIntField(item, fid_age, jage);
+
+        env->CallBooleanMethod(obj, mid_add, item);
+    }
+#endif
+    return obj;
+
+}
 
 
 

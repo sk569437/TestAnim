@@ -1,5 +1,7 @@
 package com.jjws.model;
 
+import java.util.ArrayList;
+
 /**
  * Created by sk on 16-7-18.
  */
@@ -10,10 +12,18 @@ public class Person {
     private String name;
     private String sign;
     private String sex;
+    private int age;
 
+    public int getAge() {
+        return age;
+    }
 
+    public void setAge(int age) {
+        this.age = age;
+    }
 
     public Person() {
+
     }
 
     public Person(String id, String name, String sign, String sex) {
