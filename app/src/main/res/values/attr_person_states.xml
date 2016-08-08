@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="personStatesMan" >
+        <attr name="person_state_man" format="boolean" />
+
+    </declare-styleable>
+</resources>

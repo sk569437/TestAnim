@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+    android:layout_width="fill_parent"
+
+    android:layout_height="fill_parent"
+
+    android:orientation="vertical"
+    android:background="@color/common_white">
+
+
+
+    <LinearLayout
+
+        android:layout_width="match_parent"
+
+        android:layout_height="wrap_content"
+
+        android:orientation="horizontal"
+        android:gravity="center_horizontal"
+        android:visibility="visible">
+
+        <Button
+
+            android:id="@+id/rotateButton"
+
+            android:layout_width="wrap_content"
+
+            android:layout_height="wrap_content"
+
+            android:text="旋转" />
+
+        <Button
+
+            android:id="@+id/scaleButton"
+
+            android:layout_width="wrap_content"
+
+            android:layout_height="wrap_content"
+
+            android:text="缩放" />
+
+        <Button
+
+            android:id="@+id/alphaButton"
+
+            android:layout_width="wrap_content"
+
+            android:layout_height="wrap_content"
+
+            android:text="淡入淡出" />
+
+        <Button
+
+            android:id="@+id/translateButton"
+
+            android:layout_width="wrap_content"
+
+            android:layout_height="wrap_content"
+
+            android:text="移动" />
+
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        >
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/jnistr"
+            android:textSize="16sp"
+            android:textColor="#ff00ff"
+            />
+    </ScrollView>
+
+
+    <LinearLayout
+
+        android:layout_width="fill_parent"
+
+        android:layout_height="fill_parent"
+
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <ImageView
+
+            android:id="@+id/image"
+
+            android:layout_width="match_parent"
+
+            android:layout_height="wrap_content"
+
+            android:layout_centerInParent="true"
+
+            android:src="@drawable/icon_default"
+            android:visibility="visible"
+            />
+
+    </LinearLayout>
+
+
+
+</LinearLayout>

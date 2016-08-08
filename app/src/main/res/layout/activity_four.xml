@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.jjws.testanim.FourActivity">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:id="@+id/btn_layout"
+        android:layout_marginBottom="10dp"
+        android:padding="10dp"
+        >
+
+        <Button
+            android:id="@+id/btn_addone"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Add One"
+            />
+
+        <Button
+            android:id="@+id/btn_delone"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Delete One"
+            />
+
+        <Button
+            android:id="@+id/btn_addbatch"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Add Batch"
+            />
+
+        <Button
+            android:id="@+id/btn_delbatch"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Delete Batch"
+            />
+
+    </LinearLayout>
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swiperefresh"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/btn_layout"
+        >
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+            />
+
+
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+</RelativeLayout>

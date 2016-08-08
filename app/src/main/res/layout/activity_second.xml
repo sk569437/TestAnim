@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:porterduff="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+<RelativeLayout
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.jjws.testanim.SecondActivity">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/image"
+        android:background="@drawable/image_clip"
+        android:src="@drawable/image_clip"
+
+        />
+    <!--
+    <com.jjws.custom.view.PorterDuffModeView
+        android:id="@+id/proterduff"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/image"
+        />
+        -->
+    <com.jjws.custom.view.PorterDuffView
+        android:id="@+id/porterduff"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/blue"
+        android:layout_below="@+id/image"
+        porterduff:porterduffMode="true"
+        porterduff:porterduffColor="@color/porterduff_fg_color"
+        porterduff:porterduffTextColor="@color/porterduff_progress_text_color"
+        porterduff:porterduffTextSize="16sp"
+        />
+
+
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/progress"
+
+        />
+</RelativeLayout>
+
+</ScrollView>
