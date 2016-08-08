@@ -155,10 +155,10 @@ public class FourActivity extends Activity implements View.OnClickListener{
 //
 //        }
 
-        ArrayList<Person> p = JNITest.getInstance().getPersonListFromNative(9);
-        if(p != null && p.size() > 0) {
-            mList.addAll(p);
-        }
+//        ArrayList<Person> p = JNITest.getInstance().getPersonListFromNative(9);
+//        if(p != null && p.size() > 0) {
+//            mList.addAll(p);
+//        }
 
     }
 

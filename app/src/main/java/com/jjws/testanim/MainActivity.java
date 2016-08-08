@@ -78,7 +78,7 @@ public class MainActivity extends Activity {
         image = (ImageView)findViewById(R.id.image);
         jnistr = (TextView) findViewById(R.id.jnistr);
         mJNITest = JNITest.getInstance();
-        jnistr.setText(mJNITest.getNativeString("from java"));
+        jnistr.setText(mJNITest.testFFmpegLib());
 
 
 
@@ -99,26 +99,7 @@ public class MainActivity extends Activity {
 
 
     private void getData() {
-        ArrayList<Person> mList = new ArrayList<>();
-        if(mList == null)
-            mList = new ArrayList<>();
-        mList.clear();
 
-        ArrayList<Person> tmplist = new ArrayList<>();
-        for(int i=0;i<15;i++) {
-            Person person = new Person();
-            person.setId("20260719" + i);
-            person.setName("item " + (i+1));
-            person.setSex(i%2==0 ? "F" : "M");
-            tmplist.add(person);
-        }
-
-        Person[]arr = JNITest.getInstance().getPersonObjArray(tmplist);
-        if(arr != null && arr.length > 0) {
-            for(int i=0;i<arr.length;i++) {
-                mList.add(arr[i]);
-            }
-        }
     }
 
     class AlphaButtonListener implements View.OnClickListener{
@@ -168,7 +149,7 @@ public class MainActivity extends Activity {
 //            a.setTarget(image);
 //            a.start();
 
-            startActivity(new Intent(MainActivity.this, FourActivity.class));
+            startActivity(new Intent(MainActivity.this, FiveActivity.class));
         }
 
     }
@@ -380,34 +361,8 @@ public class MainActivity extends Activity {
 
         @Override
         protected void applyTransformation(float interpolatedTime, Transformation t) {
-            super.applyTransformation(interpolatedTime, t);
 
-            final Matrix matrix  = t.getMatrix();
-
-            float fromdegree = mFromDegree;
-            float degree = mFromDegree + (mToDegree - mFromDegree)* interpolatedTime;
-            float centerx = mCenterX;
-            float centery = mCenterY;
-            final Camera camera = mCamera;
-
-            camera.save();
-
-            if(mReverse) {
-                camera.translate(0f, 0f , mDepthz * interpolatedTime);
-            }else {
-                camera.translate(0,0,mDepthz*(1-interpolatedTime));
-            }
-
-            camera.rotateY(degree);
-
-            camera.getMatrix(matrix);
-
-            camera.restore();
-
-            matrix.preTranslate(-centerx, -centery);
-            matrix.postTranslate(centerx, centery);
         }
-
 
     }
 

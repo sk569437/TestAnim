@@ -18,10 +18,12 @@ public class JNITest {
     }
 
 
-    public native String getNativeString(String src);
-    public native Person[] getPersonObjArray(ArrayList<Person> list);
+//    public native String getNativeString(String src);
+//    public native Person[] getPersonObjArray(ArrayList<Person> list);
+//
+//    public native ArrayList<Person> getPersonListFromNative(int len);
 
-    public native ArrayList<Person> getPersonListFromNative(int len);
+    public native String testFFmpegLib();
 
 
 

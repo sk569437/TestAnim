@@ -3,6 +3,7 @@ package com.jjws.testanim;
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.drawable.ClipDrawable;
 import android.media.Image;
 import android.os.Handler;
@@ -12,8 +13,16 @@ import android.os.Bundle;
 import android.text.ClipboardManager;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 
 import com.bumptech.glide.Glide;
+import com.github.ybq.android.spinkit.style.CubeGrid;
+import com.github.ybq.android.spinkit.style.DoubleBounce;
+import com.github.ybq.android.spinkit.style.MultiplePulse;
+import com.github.ybq.android.spinkit.style.MultiplePulseRing;
+import com.github.ybq.android.spinkit.style.Pulse;
+import com.github.ybq.android.spinkit.style.ThreeBounce;
+import com.github.ybq.android.spinkit.style.WanderingCubes;
 import com.jjws.custom.view.PorterDuffView;
 import com.jjws.custom.view.RoundImageDrawable;
 
@@ -29,6 +38,8 @@ public class SecondActivity extends Activity {
     private int mLevel = 0;
 
     private ClipDrawable cd;
+
+    private ProgressBar progress;
 
     private Handler mHandler = new Handler() {
 
@@ -126,6 +137,18 @@ public class SecondActivity extends Activity {
 //            }
 //        }).start();
 //        cd.setLevel(cd.getLevel() + 1000);
+
+
+        progress = (ProgressBar) findViewById(R.id.progress);
+        DoubleBounce doubleBounce = new DoubleBounce();
+        int colors = Color.parseColor("#1AAF5D");
+        doubleBounce.setBounds(0, 0, 100, 100);
+        doubleBounce.setColor(colors);
+
+        CubeGrid tb = new CubeGrid();
+        tb.setBounds(0,0,100,100);
+        tb.setColor(colors);
+        progress.setIndeterminateDrawable(tb);
 
     }
 }
